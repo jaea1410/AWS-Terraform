@@ -12,6 +12,13 @@ resource "aws_vpc" "Prod-VPC" {
 }
 
 # 2. Create Internet Gateway
+resource "aws_internet_gateway" "Prod-GW" {
+    vpc_id = aws_vpc.Prod-VPC.id
+    tags = {
+        Name = "Prod-GW"
+    }
+}
+
 # 3. Create Custom Route Table
 # 4. Create a Subnet
 # 5. Associate Subnet with Route Table
