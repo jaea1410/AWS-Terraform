@@ -30,8 +30,22 @@ resource "aws_route_table" "Test-RT" {
         Name = "Test-RT"
     }
 }
+
 # 4. Create a Subnet
+resource "aws_subnet" "Test-Subnet" {
+    vpc_id = aws_vpc.Test-VPC.id
+    cidr_block = "10.19.83.0/24"
+    tags = {
+        Name = "Test-Subnet"
+    }
+}
+
 # 5. Associate Subnet with Route Table
+resource "aws_route_table_association" "Test-Subnet-Test-RT" {
+    subnet_id = aws_subnet.Test-Subnet.id
+    route_table_id = aws_route_table.Test-RT.id
+}
+
 # 6. Create Security Group to Allow Port 22,80,443
 # 7. Create a Network Interface with an IP in the Subnet that was created in step 4
 # 8. Assign an elastic IP to the network interface created in step 7
